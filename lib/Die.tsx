@@ -53,6 +53,7 @@ const Die = forwardRef<DieRef, DieProps>(
 
     const [dieValue, setDieValue] = useState(defaultRoll || 6)
     const [hasRolled, setHasRolled] = useState(false)
+    const [isRolling, setIsRolling] = useState(false) // Add rolling state
 
     const getRandomInt = () => {
       let min = 1
@@ -61,6 +62,9 @@ const Die = forwardRef<DieRef, DieProps>(
     }
 
     const rollDie = (value?: number) => {
+      if (isRolling) return // Prevent rolling if already rolling
+
+      setIsRolling(true) // Set rolling state to true
       dieRef.current && (dieRef.current.className = `die`)
       void dieRef.current?.offsetWidth
       let roll = disableRandom ? dieValue : value || getRandomInt()
@@ -72,6 +76,7 @@ const Die = forwardRef<DieRef, DieProps>(
         setHasRolled(true)
         setDieValue(roll)
         onRollDone(roll)
+        setIsRolling(false) // Set rolling state back to false
       }, rollTime * 1000)
     }
 
