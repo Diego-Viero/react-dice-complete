@@ -7,6 +7,7 @@ import React, {
   memo,
   useMemo,
 } from 'react';
+//@ts-ignore
 import Die, { DieRef, DieProps } from './Die';
 import './styles.scss'
 
@@ -74,11 +75,9 @@ const DiceContainer = forwardRef<DieContainerRef, DiceContainerProps>(
         }
       }
 
-      if (newTotalValue !== totalValue || JSON.stringify(newDiceValues) !== JSON.stringify(diceValues)) {
-          setTotalValue(newTotalValue)
-          setDiceValues(newDiceValues)
-          totalCb(newTotalValue, newDiceValues)
-      }
+      setTotalValue(newTotalValue)
+      setDiceValues(newDiceValues)
+      totalCb(newTotalValue, newDiceValues)
     };
 
     useEffect(() => {
